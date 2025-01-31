@@ -1,7 +1,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { createContext, useContext, useState, useEffect } from 'react';
 import { getAuth, onAuthStateChanged, signOut } from 'firebase/auth';
-import { collection, getDocs, query, where, doc, getDoc, updateDoc, onSnapshot } from 'firebase/firestore';
+import { collection, getDocs, query, where, doc, updateDoc, onSnapshot } from 'firebase/firestore';
 import { db } from '../../config/firebase';
 
 // Create context

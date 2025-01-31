@@ -13,9 +13,17 @@ const checkEmailExists = async (email) => {
   }
 };
 
-export const validateRegistration = async (register) => {
-  // Input validation
-  if (!register.firstName || !register.lastName || !register.email || !register.password || !register.birthDate) {
+export const validateRegistration = async (register, isGoogleSignUp = false) => {
+  // Define required fields based on sign-up method
+  let requiredFields;
+  if (isGoogleSignUp) {
+    requiredFields = ['firstName', 'lastName', 'birthDate']; // Google sign-up requirements
+  } else {
+    requiredFields = ['firstName', 'lastName', 'email', 'password', 'birthDate']; // Regular sign-up requirements
+  }
+
+  const missingFields = requiredFields.filter(field => !register[field]);
+  if (missingFields.length > 0) {
     throw new Error("All fields are required.");
   }
 
@@ -29,29 +37,45 @@ export const validateRegistration = async (register) => {
     throw new Error("Last name must be at least 2 characters long.");
   }
 
-  // Email validation
-  if (!/^\S+@\S+\.\S+$/.test(register.email)) {
-    throw new Error("Invalid email format.");
+  // Email validation only for non-Google sign-up
+  if (!isGoogleSignUp) {
+    if (!/^\S+@\S+\.\S+$/.test(register.email)) {
+      throw new Error("Invalid email format.");
+    }
+
+    // Check if email already exists in Firestore
+    const emailExists = await checkEmailExists(register.email);
+    if (emailExists) {
+      throw new Error("Email is already registered. Please use a different email.");
+    }
   }
 
-  // Check if email already exists in Firestore
-  const emailExists = await checkEmailExists(register.email);
-  if (emailExists) {
-    throw new Error("Email is already registered. Please use a different email.");
-  }
-
-  // Password validation (at least 6 chars, one uppercase, one number, one special character)
-  const passwordRegex = /^(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*])[A-Za-z\d!@#$%^&*]{6,}$/;
-  if (!passwordRegex.test(register.password)) {
-    throw new Error(
-      "Password must be at least 6 characters long, contain one uppercase letter, one number, and one special character."
-    );
+  // Password validation only for email/password sign-up
+  if (!isGoogleSignUp && register.password) {
+    const passwordRegex = /^(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*])[A-Za-z\d!@#$%^&*]{6,}$/;
+    if (!passwordRegex.test(register.password)) {
+      throw new Error(
+        "Password must be at least 6 characters long, contain one uppercase letter, one number, and one special character."
+      );
+    }
   }
 
   // Birthdate validation
+  if (!register.birthDate) {
+    throw new Error("Birth date is required.");
+  }
+  
   const birthDate = new Date(register.birthDate);
-  const age = new Date().getFullYear() - birthDate.getFullYear();
-  if (age < 18 || age > 120) {
+  const today = new Date();
+  const age = today.getFullYear() - birthDate.getFullYear();
+  const monthDiff = today.getMonth() - birthDate.getMonth();
+  
+  // Adjust age if birthday hasn't occurred this year
+  const finalAge = monthDiff < 0 || (monthDiff === 0 && today.getDate() < birthDate.getDate()) 
+    ? age - 1 
+    : age;
+
+  if (finalAge < 18 || finalAge > 120) {
     throw new Error("Age must be between 18 and 120 years.");
   }
 };

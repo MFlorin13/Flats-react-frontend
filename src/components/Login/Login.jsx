@@ -1,9 +1,10 @@
 import { FcGoogle } from 'react-icons/fc';
 import React, { useState } from 'react';
 import { signInWithEmailAndPassword, signInWithPopup } from 'firebase/auth';
-import { auth, googleProvider } from '../../config/firebase';
+import { auth, googleProvider, db } from '../../config/firebase';
 import { useNavigate } from 'react-router-dom';
 import styles from './Login.module.css';
+import { collection, getDocs, query, where, doc, getDoc, updateDoc, onSnapshot } from 'firebase/firestore';
 
 const Login = () => {
   const [email, setEmail] = useState('');
@@ -16,7 +17,7 @@ const Login = () => {
   async function login(e) {
     e.preventDefault();
     setError('');
-    
+
     // Input validation
     if (!email || !password) {
       setError('Please fill in all fields');
@@ -50,16 +51,53 @@ const Login = () => {
   async function loginWithGoogle(e) {
     e.preventDefault();
     if (isPopupOpen) return;
-
+  
     setIsLoading(true);
     try {
       setIsPopupOpen(true);
-      await signInWithPopup(auth, googleProvider);
-      navigate('/');
+      const result = await signInWithPopup(auth, googleProvider);
+      
+      // Check if the user exists in Firestore
+      const userDoc = await getDoc(doc(db, 'users', result.user.uid));
+      
+      if (!userDoc.exists()) {
+        // Sign out the user since they need to complete registration
+        await auth.signOut();
+        
+        // Use replace instead of navigate to ensure clean history
+        navigate('/register', { 
+          replace: true, // Add this line
+          state: { 
+            isGoogleSignUp: true,
+            uid: result.user.uid,
+            email: result.user.email,
+            firstName: result.user.displayName?.split(' ')[0] || '',
+            lastName: result.user.displayName?.split(' ').slice(1).join(' ') || '',
+            photoURL: result.user.photoURL
+          } 
+        });
+      } else {
+        // User exists - go to homepage
+        navigate('/', { replace: true });
+      }
     } catch (error) {
-      if (error.code !== 'auth/popup-closed-by-user') {
-        console.error('Google login failed:', error);
-        setError('Failed to login with Google. Please try again.');
+      console.error('Google login failed:', error);
+      if (error.code === 'auth/popup-closed-by-user') {
+        return;
+      }
+
+      switch (error.code) {
+        case 'auth/account-exists-with-different-credential':
+          setError('An account already exists with this email but with a different sign-in method.');
+          break;
+        case 'auth/cancelled-popup-request':
+          setError('Please close any other login windows and try again.');
+          break;
+        case 'auth/popup-blocked':
+          setError('Login popup was blocked. Please enable popups for this site.');
+          break;
+        default:
+          setError('Failed to login with Google. Please try again.');
       }
     } finally {
       setIsPopupOpen(false);
@@ -95,9 +133,9 @@ const Login = () => {
             />
             <label className={styles.label}>Password</label>
           </div>
-          <button 
-            type="submit" 
-            className={styles.button} 
+          <button
+            type="submit"
+            className={styles.button}
             disabled={isLoading}
           >
             {isLoading ? 'Logging in...' : 'Login'}
