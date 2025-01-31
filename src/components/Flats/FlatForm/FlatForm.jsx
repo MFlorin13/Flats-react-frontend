@@ -8,7 +8,7 @@ import { collection } from 'firebase/firestore';
 import { ImageUpload } from '../../CommonComponents/ImageUpload';
 import { useToast } from '../../Context/ToastContext/ToastContext';
 import { validateFlat } from '../../Utils/FormValidation';
-import styles from '../AddFlat/AddFlat.module.css';
+import styles from './FlatForm.module.css';
 import { FaSpinner } from 'react-icons/fa';
 
 const FlatForm = ({ refreshList }) => {
