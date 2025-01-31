@@ -1,6 +1,5 @@
 import React from 'react';
 import FlatForm from '../FlatForm/FlatForm';
-import styles from './AddFlat.module.css';
 
 const AddFlat = () => {
   const refreshList = async () => {
