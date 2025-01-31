@@ -1,0 +1,127 @@
+.footer {
+  background-color: #1a202c;
+  color: #ffffff;
+  width: 100%;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+.footerContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.5rem; /* Reduced gap for a more compact layout */
+  padding: 2rem 1rem; /* Reduced padding */
+  box-sizing: border-box;
+}
+
+.logoArea {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.logo {
+  max-width: 150px; /* Slightly smaller logo */
+  height: auto;
+  transition: transform 0.3s ease;
+}
+
+.logo:hover {
+  transform: scale(1.05);
+}
+
+.socialLinks {
+  display: flex;
+  gap: 1rem; /* Reduced gap between icons */
+  justify-content: center;
+  align-items: center;
+}
+
+.iconLink {
+  color: #ffffff;
+  font-size: 1.2rem; /* Slightly smaller icon size */
+  transition: all 0.3s ease;
+  padding: 0.4rem; /* Reduced padding around icons */
+  border-radius: 50%;
+}
+
+.iconLink:hover {
+  color: #4fd1c5;
+  transform: translateY(-3px);
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+.footerText {
+  font-size: 0.85rem; /* Slightly smaller text size */
+  color: #a0aec0;
+  text-align: center;
+  padding: 0.5rem 0; /* Reduced padding for text section */
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  width: 100%;
+}
+
+/* For screens smaller than or equal to 768px */
+@media (max-width: 768px) {
+  .footerContainer {
+    padding: 1.5rem 1rem; /* Further reduce padding for smaller screens */
+    gap: 1rem; /* Reduced spacing between sections */
+  }
+
+  .logo {
+    max-width: 120px;
+  }
+
+  .socialLinks {
+    gap: 0.8rem; /* Reduced space between icons */
+  }
+
+  .iconLink {
+    font-size: 1.1rem;
+  }
+}
+
+/* For screens smaller than or equal to 480px */
+@media (max-width: 480px) {
+  .footerContainer {
+    padding: 1rem 0.5rem; /* Compact padding for small devices */
+    gap: 0.8rem; /* Tighter spacing between elements */
+  }
+
+  .socialLinks {
+    flex-wrap: wrap;
+    gap: 0.6rem; /* Smaller gap between icons */
+  }
+
+  .iconLink {
+    font-size: 1rem;
+  }
+
+  .footerText {
+    font-size: 0.75rem; /* Smaller text size */
+  }
+}
+
+/* For very small screens (300px to 479px) */
+@media (max-width: 479px) {
+  .footerContainer {
+    padding: 0.8rem; /* Minimal padding */
+    gap: 0.5rem; /* Tighter gaps for smaller screens */
+  }
+
+  .logo {
+    max-width: 100px;
+  }
+
+  .socialLinks {
+    gap: 0.5rem;
+  }
+
+  .iconLink {
+    font-size: 0.9rem;
+  }
+
+  .footerText {
+    font-size: 0.7rem;
+  }
+}

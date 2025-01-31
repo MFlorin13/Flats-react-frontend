@@ -1,0 +1,46 @@
+.imageUpload {
+    width: 100%;
+    max-width: 32rem;
+    margin: 0 auto;
+  }
+  
+  .uploadLabel {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 2rem;
+    background: #f8fafc;
+    border: 2px dashed #e2e8f0;
+    border-radius: 0.5rem;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+  
+  .uploadLabel:hover {
+    background: #f1f5f9;
+    border-color: #94a3b8;
+  }
+  
+  .uploadIcon {
+    font-size: 2rem;
+    color: #94a3b8;
+    margin-bottom: 1rem;
+  }
+  
+  .uploadText {
+    color: #64748b;
+    font-size: 0.875rem;
+  }
+  
+  .imagePreview {
+    margin-top: 1rem;
+    border-radius: 0.5rem;
+    overflow: hidden;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+  }
+  
+  .previewImage {
+    width: 100%;
+    height: auto;
+    display: block;
+  }

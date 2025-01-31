@@ -1,0 +1,283 @@
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.title {
+  font-size: 2rem;
+  font-weight: bold;
+  margin-bottom: 2rem;
+}
+
+.flatsGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 20px;
+}
+
+.flatCard {
+  background-color: white;
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+  transition: transform 0.2s ease;
+  display: flex;
+  flex-direction: column;
+}
+
+.flatCard:hover {
+  transform: translateY(-4px);
+}
+
+.imageContainer {
+  width: 100%;
+  height: 200px;
+}
+
+.flatImage {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.flatContent {
+  padding: 16px;
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.flatTitle {
+  font-size: 1.5rem;
+  font-weight: bold;
+  margin-bottom: 12px;
+  color: #111827;
+}
+
+.flatDetails {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-bottom: auto;
+}
+
+.flatDetail {
+  display: flex;
+  justify-content: space-between;
+  color: #4b5563;
+}
+
+.detailLabel {
+  font-weight: 600;
+  color: #374151;
+}
+
+.listingDate {
+  margin-top: 12px;
+  font-size: 0.875rem;
+  color: #6b7280;
+}
+
+.cardActions {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 16px;
+  padding-top: 16px;
+  border-top: 1px solid #e5e7eb;
+}
+
+.editButton, .deleteButton {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  padding: 8px 16px;
+  border-radius: 4px;
+  border: none;
+  cursor: pointer;
+  transition: all 0.2s;
+  min-width: 100px;
+  justify-content: center;
+}
+
+.editButton {
+  background-color: #3b82f6;
+  color: white;
+}
+
+.editButton:hover {
+  background-color: #2563eb;
+}
+
+.deleteButton {
+  background-color: #ef4444;
+  color: white;
+}
+
+.deleteButton:hover {
+  background-color: #dc2626;
+}
+
+.editForm {
+  padding: 16px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+
+.editInput {
+  padding: 8px;
+  border: 1px solid #e5e7eb;
+  border-radius: 4px;
+}
+
+.buttonGroup {
+  grid-column: span 2;
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+}
+
+.saveButton {
+  background-color: #10b981;
+  color: white;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  padding: 8px 16px;
+  border-radius: 4px;
+  border: none;
+  cursor: pointer;
+}
+
+.cancelButton {
+  background-color: #6b7280;
+  color: white;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  padding: 8px 16px;
+  border-radius: 4px;
+  border: none;
+  cursor: pointer;
+}
+
+.emptyState {
+  text-align: center;
+  color: #6b7280;
+  padding: 2rem;
+  font-size: 1.125rem;
+}
+
+@media screen and (min-width: 1200px) {
+  .container {
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+}
+
+/* For screens from 900px to 1199px */
+@media screen and (max-width: 1199px) and (min-width: 900px) {
+  .container {
+    max-width: 1000px;
+  }
+  .flatsGrid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .flatCard {
+    margin: 10px;
+  }
+}
+
+/* For screens from 600px to 899px */
+@media screen and (max-width: 899px) and (min-width: 600px) {
+  .container {
+    max-width: 800px;
+  }
+  .flatsGrid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 15px;
+  }
+  .flatCard {
+    margin: 8px;
+  }
+  .cardActions {
+    flex-direction: column;
+    align-items: stretch;  
+    gap: 10px;            
+  }
+  .editButton, .deleteButton {
+    width: 100%;          
+    padding: 12px;         
+    font-size: 1rem;       
+  }
+}
+
+/* For screens from 300px to 599px */
+@media screen and (max-width: 599px) and (min-width: 300px) {
+  .container {
+    max-width: 100%;
+    padding: 0 10px;
+  }
+  .flatsGrid {
+    grid-template-columns: 1fr;
+    gap: 10px;
+  }
+  .flatCard {
+    margin: 5px;
+  }
+  .flatTitle {
+    font-size: 1.25rem;
+  }
+  .flatDetails {
+    font-size: 0.875rem;
+  }
+  .cardActions {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  .cardActions {
+    flex-direction: column; 
+    align-items: stretch; 
+    gap: 12px;            
+  }
+  .editButton, .deleteButton {
+    width: 100%;           
+    padding: 14px;         
+    font-size: 1rem;       
+  }
+}
+
+/* For screens smaller than 300px */
+@media screen and (max-width: 300px) {
+  .container {
+    padding: 0 5px;
+  }
+  .flatsGrid {
+    grid-template-columns: 1fr;
+    gap: 5px;
+  }
+  .flatCard {
+    margin: 2px;
+  }
+  .flatTitle {
+    font-size: 1rem;
+  }
+  .flatDetails {
+    font-size: 0.75rem;
+  }
+  .cardActions {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  .cardActions {
+    flex-direction: column; 
+    align-items: stretch;  
+    gap: 8px;            
+  }
+  .editButton, .deleteButton {
+    width: 100%;          
+    padding: 10px;       
+    font-size: 0.875rem;  
+  }
+}

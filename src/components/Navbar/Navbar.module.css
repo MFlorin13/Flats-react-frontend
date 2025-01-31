@@ -1,0 +1,235 @@
+.navbar {
+  background: linear-gradient(90deg, #0f2027, #203a43, #2c5364);
+  color: #ffffff;
+  padding: 1rem 2rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  transition: all 0.3s ease;
+}
+
+.navbarContainer {
+  width: 100%;
+  
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.logo {
+  font-size: 2rem;
+  font-weight: bold;
+  color: #ffffff;
+  letter-spacing: 2px;
+  text-shadow: 0 0 10px #00d4ff, 0 0 20px #00d4ff;
+  cursor: pointer;
+  transition: transform 0.3s ease;
+}
+
+.logo:hover {
+  transform: scale(1.1);
+}
+
+.navLinks {
+  display: flex;
+  gap: 2rem;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.link {
+  text-decoration: none;
+  color: #ffffff;
+  font-weight: 500;
+  position: relative;
+  overflow: hidden;
+  transition: color 0.3s ease;
+}
+
+.link::before {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background: linear-gradient(90deg, #00d4ff, #4fd1c5);
+  transform: scaleX(0);
+  transform-origin: right;
+  transition: transform 0.3s ease;
+}
+
+.link:hover::before {
+  transform: scaleX(1);
+  transform-origin: left;
+}
+
+.link:hover {
+  color: #00d4ff;
+}
+
+.activeLink {
+  color: #00d4ff;
+  font-weight: bold;
+  font-size: 1.3rem;
+}
+
+.userInfo {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.avatar {
+  font-size: 2rem;
+  color: #00d4ff;
+  text-shadow: 0 0 10px #00d4ff, 0 0 20px #4fd1c5;
+}
+
+.userName {
+  font-size: 1rem;
+  font-weight: 500;
+  color: #ffffff;
+}
+
+.navbarButton {
+  background: linear-gradient(90deg, #00d4ff, #4fd1c5);
+  border: none;
+  color: #1a202c;
+  font-weight: bold;
+  padding: 0.6rem 1.2rem;
+  border-radius: 50px;
+  cursor: pointer;
+  box-shadow: 0 4px 15px rgba(0, 212, 255, 0.5);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.navbarButton:hover {
+  transform: scale(1.05);
+  box-shadow: 0 6px 20px rgba(0, 212, 255, 0.8);
+}
+
+@media screen and (min-width: 1200px) {
+  .navbar {
+    padding: 1rem 3rem;
+  }
+
+  .logo {
+    font-size: 2.5rem;
+  }
+
+  .navLinks {
+    gap: 3rem; 
+  }
+
+  .link {
+    font-size: 1rem;
+  }
+
+  .navbarButton {
+    padding: 0.8rem 1.5rem;
+  }
+}
+
+/* For screens between 900px and 1199px */
+@media screen and (max-width: 1199px) and (min-width: 900px) {
+  .navbar {
+    padding: 1rem 2.5rem
+  }
+
+  .logo {
+    font-size: 2.2rem;
+  }
+
+  .navLinks {
+    gap: 2.5rem;
+  }
+
+  .link {
+    font-size: 1.1rem;
+  }
+
+  .navbarButton {
+    padding: 0.7rem 1.4rem;
+  }
+}
+
+/* For screens between 600px and 899px */
+@media screen and (max-width: 899px) and (min-width: 600px) {
+  .navbar {
+    padding: 1rem 2rem;
+  }
+
+  .logo {
+    font-size: 2rem;
+  }
+
+  .navLinks {
+    gap: 2rem;
+  }
+
+  .link {
+    font-size: 1rem;
+  }
+
+  .navbarButton {
+    padding: 0.6rem 1.3rem;
+  }
+}
+
+/* For screens between 300px and 599px */
+@media screen and (max-width: 599px) and (min-width: 300px) {
+  .navbar {
+    padding: 1rem 1.5rem;
+  }
+
+  .logo {
+    font-size: 1.6rem;
+  }
+
+  .navLinks {
+    gap: 1.5rem;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .link {
+    font-size: 0.9rem;
+  }
+
+  .navbarButton {
+    padding: 0.5rem 1rem;
+    width: 100%;
+  }
+}
+
+/* For screens smaller than 300px */
+@media screen and (max-width: 300px) {
+  .navbar {
+    padding: 1rem 1rem;
+  }
+
+  .logo {
+    font-size: 1.4rem;
+  }
+
+  .navLinks {
+    gap: 1rem; 
+    flex-direction: column; 
+    align-items: flex-start; 
+  }
+
+  .link {
+    font-size: 0.8rem;
+  }
+
+  .navbarButton {
+    padding: 0.4rem 0.8rem;
+    width: 100%;
+  }
+}

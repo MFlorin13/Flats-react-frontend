@@ -1,0 +1,87 @@
+.toastContainer {
+    position: fixed;
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    z-index: 9999;
+    width: 100%;
+    max-width: 400px;
+    pointer-events: none;
+  }
+  
+  .toast {
+    color: white;
+    padding: 12px 24px;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    max-width: 400px;
+    animation: slideDown 0.3s ease-out;
+    pointer-events: auto;
+    margin: 0 16px;
+  }
+  
+  .success {
+    background-color: #10B981;
+  }
+  
+  .error {
+    background-color: #EF4444;
+  }
+  
+  .info {
+    background-color: #3B82F6;
+  }
+  
+  .iconContainer {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  
+  .closeButton {
+    background: none;
+    border: none;
+    color: white;
+    cursor: pointer;
+    padding: 4px;
+    margin-left: 12px;
+    opacity: 0.8;
+    transition: opacity 0.2s;
+  }
+  
+  .closeButton:hover {
+    opacity: 1;
+  }
+  
+  @keyframes slideDown {
+    from {
+      transform: translateY(-100%) translateX(-50%);
+      opacity: 0;
+    }
+    to {
+      transform: translateY(0) translateX(-50%);
+      opacity: 1;
+    }
+  }
+  
+  /* Media queries for responsiveness */
+  @media (max-width: 480px) {
+    .toast {
+      margin: 0 8px;
+      padding: 10px 16px;
+      font-size: 14px;
+    }
+    
+    .toastContainer {
+      max-width: 100%;
+      padding: 0 8px;
+    }
+  }

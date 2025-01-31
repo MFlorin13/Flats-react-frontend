@@ -1,0 +1,27 @@
+.deleteButton {
+    background: linear-gradient(90deg, #ef4444, #dc2626);
+    border: none;
+    color: white;
+    font-weight: bold;
+    padding: 0.6rem 1.2rem;
+    border-radius: 50px;
+    cursor: pointer;
+    box-shadow: 0 4px 15px rgba(239, 68, 68, 0.3);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+  
+  .deleteButton:hover {
+    transform: scale(1.05);
+    box-shadow: 0 6px 20px rgba(239, 68, 68, 0.5);
+  }
+  
+  .deleteButton:active {
+    transform: scale(0.95);
+  }
+  
+  @media screen and (max-width: 640px) {
+    .deleteButton {
+      padding: 0.5rem 1rem;
+      font-size: 0.875rem;
+    }
+  }
