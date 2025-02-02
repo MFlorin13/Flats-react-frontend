@@ -1,6 +1,6 @@
 import { FcGoogle } from 'react-icons/fc';
-import React, { useState } from 'react';
-import { signInWithEmailAndPassword, signInWithPopup } from 'firebase/auth';
+import React, { useState, useEffect } from 'react';
+import { signInWithEmailAndPassword, signInWithPopup, browserLocalPersistence, setPersistence } from 'firebase/auth';
 import { auth, googleProvider, db } from '../../config/firebase';
 import { useNavigate } from 'react-router-dom';
 import styles from './Login.module.css';
@@ -14,11 +14,18 @@ const Login = () => {
   const [isPopupOpen, setIsPopupOpen] = useState(false);
   const navigate = useNavigate();
 
+  // Set persistence on component mount
+  useEffect(() => {
+    setPersistence(auth, browserLocalPersistence)
+      .catch((error) => {
+        console.error('Error setting persistence:', error);
+      });
+  }, []);
+
   async function login(e) {
     e.preventDefault();
     setError('');
 
-    // Input validation
     if (!email || !password) {
       setError('Please fill in all fields');
       return;
@@ -26,6 +33,8 @@ const Login = () => {
 
     setIsLoading(true);
     try {
+      // Set persistence before each sign-in attempt
+      await setPersistence(auth, browserLocalPersistence);
       await signInWithEmailAndPassword(auth, email, password);
       navigate('/');
     } catch (error) {
@@ -55,6 +64,10 @@ const Login = () => {
     setIsLoading(true);
     try {
       setIsPopupOpen(true);
+      
+      // Set persistence before Google sign-in attempt
+      await setPersistence(auth, browserLocalPersistence);
+      
       const result = await signInWithPopup(auth, googleProvider);
       
       // Check if the user exists in Firestore
@@ -64,9 +77,8 @@ const Login = () => {
         // Sign out the user since they need to complete registration
         await auth.signOut();
         
-        // Use replace instead of navigate to ensure clean history
         navigate('/register', { 
-          replace: true, // Add this line
+          replace: true,
           state: { 
             isGoogleSignUp: true,
             uid: result.user.uid,
@@ -77,7 +89,6 @@ const Login = () => {
           } 
         });
       } else {
-        // User exists - go to homepage
         navigate('/', { replace: true });
       }
     } catch (error) {
@@ -96,8 +107,14 @@ const Login = () => {
         case 'auth/popup-blocked':
           setError('Login popup was blocked. Please enable popups for this site.');
           break;
+        case 'auth/invalid-credential':
+          setError('The login session expired. Please try again.');
+          break;
+        case 'auth/unauthorized-domain':
+          setError('This domain is not authorized for Google sign-in.');
+          break;
         default:
-          setError('Failed to login with Google. Please try again.');
+          setError(`Failed to login with Google. Please try again. ${error.message}`);
       }
     } finally {
       setIsPopupOpen(false);
